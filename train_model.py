@@ -1,24 +1,41 @@
-import pandas as pd
-from sklearn.svm import SVC
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+import tensorflow.lite as tflite
 import joblib
 
-# Training data (MAV, RMS, ZCR for each cheek)
-data = {
-    "right_MAV": [0.50, 0.60, 0.45, 0.70],
-    "right_RMS": [0.55, 0.65, 0.42, 0.75],
-    "right_ZCR": [20, 25, 15, 30],
-    "left_MAV": [0.50, 0.30, 0.70, 0.40],
-    "left_RMS": [0.55, 0.32, 0.72, 0.45],
-    "left_ZCR": [20, 10, 35, 15],
-    "Label": ["forward", "left", "right", "stop"]
-}
+# Simulated Training Data (Replace with Real EMG Data Later)
+# Format: [MAV Right, RMS Right, ZCR Right, MAV Left, RMS Left, ZCR Left] → Movement
+data = np.array([
+    [0.5, 0.6, 10, 0.4, 0.5, 12, 0],  # No movement
+    [1.2, 1.3, 20, 0.5, 0.6, 14, 1],  # Left cheek clench → Turn Left
+    [0.5, 0.6, 15, 1.3, 1.4, 22, 2],  # Right cheek clench → Turn Right
+    [1.2, 1.3, 25, 1.3, 1.4, 28, 3],  # Both cheeks clench → Move Forward
+])
 
-df = pd.DataFrame(data)
-X = df.drop("Label", axis=1)
-y = df["Label"]
+X, y = data[:, :-1], data[:, -1]  # Features & Labels
 
-model = SVC(kernel="linear")
-model.fit(X, y)
+# Define a TinyML-Friendly Neural Network
+model = keras.Sequential([
+    layers.Dense(6, activation="relu", input_shape=(6,)),  # 6 Features
+    layers.Dense(4, activation="softmax")  # 4 Output Classes (0=Stop, 1=Left, 2=Right, 3=Forward)
+])
 
-joblib.dump(model, "ai_model/emg_classifier.pkl")
-print("AI Model Updated for 3-electrode System!")
+# Compile & Train
+model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"])
+model.fit(X, y, epochs=100, verbose=1)
+
+# Save Normal Model (For Debugging)
+model.save("emg_model.keras")
+joblib.dump((X, y), "training_data.pkl")  # Save data for reference
+
+# Convert Model to TFLite Micro
+converter = tflite.TFLiteConverter.from_keras_model(model)
+tflite_model = converter.convert()
+
+# Save Model for ESP32 Deployment
+with open("emg_model.tflite", "wb") as f:
+    f.write(tflite_model)
+
+print("Model training complete! TFLite model saved as emg_model.tflite")

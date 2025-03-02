@@ -1,3 +1,13 @@
+'''import serial
+
+ser = serial.Serial('/dev/cu.usbserial-0001', 115200, timeout=1)  # Update with your actual port
+ser.flush()  # Flush any old data
+
+while True:
+    if ser.in_waiting > 0:  # Check if data is available
+        raw_data = ser.readline().decode('utf-8').strip()  # Read a line of data
+        print(f"Received Data: {raw_data}")  # Print the raw data to the terminal
+'''
 import serial
 import matplotlib.pyplot as plt
 import numpy as np

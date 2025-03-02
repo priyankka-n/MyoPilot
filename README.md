@@ -37,8 +37,8 @@ MyoPilot is a modular, AI-enhanced **biomechanical interface**, engineered for *
 
 | **Component** | **Role** |
 |--------------|---------|
-| **ESP32-A (Neural Signal Processing & AI)** | Captures EMG signals, filters noise, extracts key features, classifies intent using an AI model, and transmits movement commands. |
-| **ESP32-B (Motor Control & Navigation)** | Receives movement commands via WiFi, executes real-time motor control, and maneuvers the rover accordingly. |
+| **ESP32-A (Neural Signal Processing & AI)** | Captures EMG signals, filters noise, extracts key features, records muscular contraction and classifies intent of movement using an AI model, and transmits movement commands. |
+| **ESP32-B (Motor Control & Navigation)** | Receives movement commands via WiFi, executes real-time motor control, and maneuvers the land rover accordingly. |
 
 ---
 
@@ -135,8 +135,6 @@ MyoPilot is designed to be **highly scalable and modular**. Future developments 
 MyoPilot is a testament to the **fusion of biological intelligence and embedded AI**. It is a **leap** toward a world where technology is not only cost-effective but also **responds to neural intent**, redefining **how we interact with machines**.
 
 **Built by:** *Team Magneto (James Thompson, Collin Glover, Austin Bubak, Priyankka Nanrudaiyan)*  
-**CornHacks 2025 | "A Corn Odyssey"**  
-
-**Star this repo if you believe in the future of hands-free control.**
+**CornHacks 2025 | "A Corn Odyssey"** 
 
 

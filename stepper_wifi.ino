@@ -45,8 +45,8 @@ void setup() {
     // Register the callback function that handles incoming data
     esp_now_register_recv_cb(onDataReceived);  // Register the onDataReceived function to be called when data is received
 
-    stepper1.setSpeed(10);
-    stepper2.setSpeed(10);
+    stepper1.setSpeed(15);
+    stepper2.setSpeed(15);
 }
 
 void loop() {
@@ -55,13 +55,11 @@ void loop() {
 //    delay(1000);  // Optional: Add a small delay for processing
     int dataBits = receivedData.detector;
     int i;
-    for(i=0;i<STEPS_PER_REV;i++){
-      if((dataBits == 1) || (dataBits == 3)){
-        stepper1.step(-1);
-      }
-      if((dataBits == 2) || (dataBits ==3)){
-        stepper2.step(1);
-      }
-    }
-    delay(500);
+     if((dataBits == 1) || (dataBits == 3)){
+       stepper1.step(-1);
+     }
+     if((dataBits == 2) || (dataBits == 3)){
+       stepper2.step(1);
+     }
+    
 }

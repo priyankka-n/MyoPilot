@@ -7,7 +7,7 @@ Corn Hacks 2025- MyoPilot
 
 MyoPilot is an embedded AI system that enables hands-free robotic control using electromyography (EMG). Designed for precision, efficiency, and adaptability in extreme environments, MyoPilot translates facial muscle movements into real-time navigation commands—a breakthrough in biomechanical control and embedded intelligence.
 
-This project is more than a hackathon entry—it is a step toward the future of astronaut interfaces, assistive robotics, and next-generation control systems.
+This project is a step toward the future of astronaut interfaces, assistive robotics, and next-generation control systems.
 
 🛰 Project Mission: Seamless Neural-Driven Navigation
 MyoPilot integrates EMG signal processing, AI-based classification, and embedded motor control into a fully self-contained system. Unlike traditional robotic interfaces, MyoPilot requires no handheld controllers, no external computation, and no latency-inducing middleware.

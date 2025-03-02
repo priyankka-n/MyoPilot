@@ -107,7 +107,7 @@ module fullCarBody(){
     translate([motorDiam+boxThick,-bodWidth/2,desHt/2])carBox();
 }
 //
-fullCarBody();
+//fullCarBody();
 //wheels();
 //
 
@@ -199,9 +199,30 @@ desHelmHt = 300;
 desHelmDepth = fullHelmDepth;
 desHelmWidth = 200;
 //helm();
-
-
-
-
-
+helmTopSplit = fullHelmDepth*3/8;
+module frontHelmTopBot(){
+    difference(){
+        frontHelmTop();
+        translate([0,0,50+helmTopSplit])cube([fullHelmWidth*9/8,fullHelmHt,100],center=true);
+    }
+}
+//
+module frontHelmTopTop(){
+    intersection(){
+        frontHelmTop();
+        translate([0,0,50+helmTopSplit])cube([fullHelmWidth*9/8,fullHelmHt,100],center=true);
+    }
+}
+//
+////frontHelmTopBot();
+//difference(){
+//    frontHelmTopTop();
+//    translate([0,-fullHelmHt/2,-.1])cube(fullHelmHt);
+//}
+//
+//intersection(){
+//    frontHelmTopTop();
+//    translate([0,-fullHelmHt/2,-.1])cube(fullHelmHt);
+//}
+//
 

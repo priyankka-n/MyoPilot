@@ -1,9 +1,26 @@
-/* [Paramters] */
+/**
+* Author: Collin Glover
+* Original Magneto helmet found on Thingiverse (by jakenrobin): https://www.thingiverse.com/thing:3914592/files
+*/
+
+
+/* [Car Parts] */
+showWheels = false;
+showCarBody = false;
+showCarBall = false;
+
+/* [Helmet Parts] */
+showHelmetFull = false;
+showHelmetRight = false;
+showHelmetLeft = false;
+showHelmetTopBottom = false;
+showHelmetTopRight = false;
+showHelmetTopLeft = false;
+
+/* [Hidden] */
 $fn=50;
 bodThick = 5;
 desHtRad = 20;
-
-/* [Hidden] */
 inch = 25.4;
 //
 /* [Wheels] */
@@ -107,8 +124,15 @@ module fullCarBody(){
     translate([motorDiam+boxThick,-bodWidth/2,desHt/2])carBox();
 }
 //
-//fullCarBody();
-//wheels();
+if(showCarBody){
+    fullCarBody();
+}
+if(showWheels){
+    wheels();
+}
+if(showCarBall){
+    carBall();
+}
 //
 
 /* [Helmet] */
@@ -214,15 +238,30 @@ module frontHelmTopTop(){
     }
 }
 //
-////frontHelmTopBot();
-//difference(){
-//    frontHelmTopTop();
-//    translate([0,-fullHelmHt/2,-.1])cube(fullHelmHt);
-//}
-//
-//intersection(){
-//    frontHelmTopTop();
-//    translate([0,-fullHelmHt/2,-.1])cube(fullHelmHt);
-//}
+if(showHelmetFull){
+    frontHelm();
+}
+if(showHelmetLeft){
+       frontHelmLeft();
+}
+if(showHelmetRight){
+       frontHelmRight();
+}
+if(showHelmetTopBottom){
+       frontHelmTopBot();
+}
+if(showHelmetTopLeft){
+    difference(){
+        frontHelmTopTop();
+        translate([0,-fullHelmHt/2,-.1])cube(fullHelmHt);
+    }
+}
+if(showHelmetTopRight){
+    intersection(){
+        frontHelmTopTop();
+        translate([0,-fullHelmHt/2,-.1])cube(fullHelmHt);
+    }
+}
+//frontHelmTopBot();
 //
 

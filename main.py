@@ -3,7 +3,7 @@ import numpy as np
 import joblib
 
 model = joblib.load("ai_model/emg_classifier.pkl")
-ser = serial.Serial('/dev/ttyUSB0', 115200) # UPDATE HERE
+ser = serial.Serial('/dev/ttyUSB0', 115200) # UPDATED HERE
 
 while True:
     data = ser.readline().decode().strip()

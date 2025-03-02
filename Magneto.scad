@@ -8,6 +8,7 @@
 showWheels = false;
 showCarBody = false;
 showCarBall = false;
+showBlueBaller = false;
 
 /* [Helmet Parts] */
 showHelmetFull = false;
@@ -20,7 +21,7 @@ showHelmetTopLeft = false;
 /* [Hidden] */
 $fn=50;
 bodThick = 5;
-desHtRad = 20;
+desHtRad = 30;
 inch = 25.4;
 //
 /* [Wheels] */
@@ -29,7 +30,7 @@ module wheel(){
     difference(){
         union(){
             scale([s,s,s])import("1_10_tyre.stl");
-            translate([desHt/2-0.25,0.1,desHt/2-0.25])rotate([-90,0,0])cylinder(r=4.5,h=7);
+            translate([desHt/2-0.25,0.1,desHt/2-0.25])rotate([-90,0,0])cylinder(r=5.5,h=7);
         }
         translate([desHt/2-0.25,3,desHt/2-0.25])cube([3.5,6.1,5.5],center=true);
     }
@@ -39,7 +40,7 @@ module wheelM(){
     difference(){
         union(){
             scale([s,s,s])import("1_10_tyre_mirrored.stl");
-            translate([desHt/2-0.25,0.1,desHt/2-0.25])rotate([-90,0,0])cylinder(r=4.5,h=7);
+            translate([desHt/2-0.25,0.1,desHt/2-0.25])rotate([-90,0,0])cylinder(r=5.5,h=7);
         }
         translate([desHt/2-0.25,3,desHt/2-0.25])cube([3.5,6.1,5.5],center=true);
     }
@@ -124,6 +125,14 @@ module fullCarBody(){
     translate([motorDiam+boxThick,-bodWidth/2,desHt/2])carBox();
 }
 //
+module blueBaller(){
+    // prevents the ball from rolling away...
+    intersection(){
+        translate([0,0,desHt-bodThick/2])rotate([180,0,0])ballCap();
+        translate([bodLength*3/4,0,desHt/2])cube([bodWidth,bodWidth,12.5],center=true);
+    }
+}
+//
 if(showCarBody){
     fullCarBody();
 }
@@ -132,6 +141,9 @@ if(showWheels){
 }
 if(showCarBall){
     carBall();
+}
+if(showBlueBaller){
+    blueBaller();
 }
 //
 

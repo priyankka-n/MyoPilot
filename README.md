@@ -134,7 +134,7 @@ MyoPilot is designed to be **highly scalable and modular**. Future developments 
 
 MyoPilot is a testament to the **fusion of biological intelligence and embedded AI**. It is a **leap** toward a world where technology is not only cost-effective but also **responds to neural intent**, redefining **how we interact with machines**.
 
-**Built by:** *Team Magneto (James Thompson, Collin Glover, Austin Bubak, Priyankka Nanrudaiyan)*  
+**Built by:** *Team Magneto (James Thomson, Collin Glover, Austin Bubak, Priyankka Nanrudaiyan)*  
 **CornHacks 2025 | "A Corn Odyssey"** 
 
 

@@ -1,11 +1,9 @@
-#include <AsyncUDP.h>
+#include <AsyncUDP.h>  // Needed for ESP32 UDP communication (if used)
 
-#include <dummy.h>
+// Define valid ESP32 analog input pins
+const int rightCheekPin = 36;  // GPIO36 (VP) - Right cheek EMG
+const int leftCheekPin = 39;   // GPIO39 (VN) - Left cheek EMG
 
-#include <dummy.h>
-
-const int rightCheekPin = A0;  // Right cheek EMG
-const int leftCheekPin = A1;   // Left cheek EMG
 const int sampleSize = 50;     // Moving average sample size
 
 float rightEMG[sampleSize];
@@ -23,13 +21,13 @@ void loop() {
     float prevRight = 0, prevLeft = 0;
 
     for (int i = 0; i < sampleSize; i++) {
-        rightEMG[i] = analogRead(rightCheekPin) * (3.3 / 4095.0);
+        rightEMG[i] = analogRead(rightCheekPin) * (3.3 / 4095.0); // Normalize to 3.3V range
         leftEMG[i] = analogRead(leftCheekPin) * (3.3 / 4095.0);
 
         sumRight += abs(rightEMG[i]);
         sumLeft += abs(leftEMG[i]);
 
-        // Zero Crossing Rate (ZCR)
+        // Zero Crossing Rate (ZCR) Calculation
         if ((rightEMG[i] > 0 && prevRight < 0) || (rightEMG[i] < 0 && prevRight > 0)) {
             zcrRight++;
         }
@@ -46,7 +44,7 @@ void loop() {
     float mavLeft = sumLeft / sampleSize;
     float rmsLeft = sqrt(sumLeft / sampleSize);
 
-    // Send formatted data: rightMAV, rightRMS, rightZCR, leftMAV, leftRMS, leftZCR
+    // Send formatted EMG feature data over Serial
     Serial.print(mavRight);
     Serial.print(",");
     Serial.print(rmsRight);
@@ -59,5 +57,5 @@ void loop() {
     Serial.print(",");
     Serial.println(zcrLeft);
 
-    delay(50);
+    delay(50); // Small delay to manage data flow
 }
